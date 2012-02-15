@@ -16,8 +16,9 @@ $(document).ready(function() {
 
 	phonos[newPhonoID] = $.phono({
 	    apiKey: "C17D167F-09C6-4E4C-A3DD-2025D48BA243",
-            gateway: "staging.phono.com",
-	    
+            gateway: "localhost",
+	    connectionUrl: "http://localhost:8080/prism_bosh",
+
             onReady: function(event) {
                 newPhonoDiv.find(".sessionId").text(this.sessionId);
                 newPhonoDiv.find(".phoneControl").show();
