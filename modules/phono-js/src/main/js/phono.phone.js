@@ -124,11 +124,11 @@
            }).up();           
        });
 
-       this.transport.buildTransport(partial.up());
-       
-      this.connection.sendIQ(jingleIq, function (iq) {
-         call.state = CallState.PROGRESS;
-      });
+       this.transport.buildTransport("offer", partial.up(), function() {
+           call.connection.sendIQ(jingleIq, function (iq) {
+               call.state = CallState.PROGRESS;
+           });
+       });
    };
    
    Call.prototype.accept = function() {
@@ -185,14 +185,14 @@
                }).up();           
            }
        });
-       
-       this.transport.buildTransport(partial.up());
-       
-       this.connection.sendIQ(jingleIq, function (iq) {
-           call.state = CallState.CONNECTED;
-           Phono.events.trigger(call, "answer");
-           if (call.ringer != null) call.ringer.stop();
-           call.startAudio();
+
+       this.transport.buildTransport("answer", partial.up(), function(){
+           call.connection.sendIQ(jingleIq, function (iq) {
+               call.state = CallState.CONNECTED;
+               Phono.events.trigger(call, "answer");
+               if (call.ringer != null) call.ringer.stop();
+               call.startAudio();
+           });
        });
        
    };
@@ -605,7 +605,7 @@
             });
          }
          else if(to.indexOf("@") > 0) {
-            call.remoteJid = Phono.util.escapeXmppNode(to) + "@sip";
+             call.remoteJid = to;
          }
       }
    };
