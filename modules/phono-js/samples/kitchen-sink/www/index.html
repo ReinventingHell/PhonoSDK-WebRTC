@@ -15,8 +15,31 @@
     <script type="text/javascript" src="log4javascript.js"></script>    
     <script type="text/javascript" src="jquery.phono.js"></script>
     <script type="text/javascript" src="kitchen-sink.js"></script>
+
+<style type="text/css">
+  #container {
+    position: relative;
+    min-height: 100%;
+    width: 100%;
+    margin: 0px auto;
+  }
+  #local {    
+    spacing: 4px;
+    float: left;  
+    width: 50%;
+    -webkit-transform: scale(-1, 1);
+  }
+  #remote {
+    spacing: 4px;    
+    float: right;  
+    width: 50%;
+  }   
+</style>
+
 </head>
 <body>
+
+  
 	<div id="sample-header">
 		<div class="header">
 			<div class="logo">
@@ -32,6 +55,8 @@
 				</p>	
 			</div>
 		</div>
+
+
 	</div>
 	
 	<div class="phonoHldr">
@@ -161,6 +186,26 @@
    		  </select>
                   &nbsp;for audio
 	</p>
+
+  <div id="container">
+    <div id="local">
+      <video
+         width="80%" height="80%" id="localVideo" autoplay="autoplay"
+         onclick="onClick()" style="opacity: 0;
+                                    -webkit-transition-property: opacity;
+                                    -webkit-transition-duration: 2s;">
+      </video>
+    </div>
+    <div id="remote">
+      <video width="80%" height="80%" id="remoteVideo" autoplay="autoplay"
+             style="opacity: 0; 
+                    -webkit-transition-property: opacity;
+                    -webkit-transition-duration: 2s;">
+      </video>
+    </div>
+    <div id="footer">    
+    </div>
+  </div>
 	
 </body>
 </html>
