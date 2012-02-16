@@ -2,22 +2,28 @@ function WebRTCAudio(phono, config, callback) {
     
     console.log("Initialize WebRTC");
     
-    this.config = config;
+    this.config = Phono.util.extend({
+        media: "audio,video"
+      }  , config);
+
     var plugin = this;
     
-    var containerId = this.config.containerId;
-    
+    var localContainerId = this.config.localContainerId;
+    var remoteContainerId = this.config.remoteContainerId;
+
     // Create audio continer if user did not specify one
-    if(!containerId) {
-	this.config.containerId = containerId = this.createContainer();
+    if(!localContainerId) {
+	this.config.localContainerId = this.createContainer();
+    }
+    if(!remoteContainerId) {
+	this.config.remoteContainerId = this.createContainer();
     }
 
-//    WebRTCAudio.remoteAudio = document.getElementById(containerId);
-    WebRTCAudio.remoteVideo = document.getElementById("remoteVideo");
-    WebRTCAudio.localVideo = document.getElementById("localVideo");
+    WebRTCAudio.remoteVideo = document.getElementById(this.config.remoteContainerId);
+    WebRTCAudio.localVideo = document.getElementById(this.config.localContainerId);
 
     try { 
-        navigator.webkitGetUserMedia("audio,video", 
+        navigator.webkitGetUserMedia(this.config.media, 
                                      function(stream) {
                                          WebRTCAudio.localStream = stream;
                                          console.log("We have a stream");
@@ -46,9 +52,6 @@ WebRTCAudio.answer = null;
 WebRTCAudio.pc = null
 WebRTCAudio.stun = "STUN stun.l.google.com:19302";
 WebRTCAudio.count = 0;
-WebRTCAudio.remoteVideo = document.getElementById("remoteVideo");
-WebRTCAudio.localVideo = document.getElementById("localVideo");
-
 
 // WebRTCAudio Functions
 //
@@ -78,7 +81,7 @@ WebRTCAudio.prototype.share = function(url, autoPlay, codec) {
         stop: function() {
             // Stop
             WebRTCAudio.pc.close();
-            WebRTCAudio.remoteVideo.style.opacity = 1;
+            WebRTCAudio.remoteVideo.style.opacity = 0;
         },
         digit: function(value, duration, audible) {
             // No idea how to do this yet

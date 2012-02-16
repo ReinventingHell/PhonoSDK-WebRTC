@@ -54,6 +54,8 @@ $(document).ready(function() {
                 type: $('.audio-plugin').val(), // flash|java|none|auto
                 jar: "../../../plugins/audio/phono.audio.jar",
                 swf: "../../../plugins/audio/phono.audio.swf",
+                localContainerId: "localVideo",
+                remoteContainerId: "remoteVideo",
                 onPermissionBoxShow: function(event) {
                     console.log("["+newPhonoID+"] Flash permission box loaded"); 
                 },
