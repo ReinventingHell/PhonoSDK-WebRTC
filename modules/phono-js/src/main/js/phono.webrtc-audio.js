@@ -125,6 +125,9 @@ WebRTCAudio.prototype.transport = function() {
                                                               var roap = jQuery.parseJSON(message.substring(4,message.length));
                                                               if (roap['messageType'] == "ANSWER") {
                                                                   console.log("Received ANSWER from PeerConnection: " + message);
+                                                                  // Canary is giving a null s= line, so 
+                                                                  // we replace it with something useful
+                                                                  message = message.replace("s=", "s=Canary");
                                                                   WebRTCAudio.answer = message;
                                                                   j.c('transport',{xmlns:"http://phono.com/webrtc/transport"})
                                                                       .c('roap',Base64.encode(WebRTCAudio.answer));
@@ -167,6 +170,9 @@ WebRTCAudio.prototype.transport = function() {
                 WebRTCAudio.pc = new webkitPeerConnection(WebRTCAudio.stun,
                                                           function(message) {
                                                               console.log("C->S SDP: " + message);
+                                                              // Canary is giving a null s= line, so 
+                                                              // we replace it with something useful
+                                                              message = message.replace("s=", "s=Canary");
                                                               var roap = jQuery.parseJSON(message.substring(4,message.length));
                                                               if (roap['messageType'] == "OFFER") {
                                                                   j.c('transport',{xmlns:"http://phono.com/webrtc/transport"})
