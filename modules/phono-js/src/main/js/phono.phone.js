@@ -357,7 +357,7 @@
       // No matching codec
       if (!codec) {
           Phono.log.error("No matching codec");
-          return null;
+          //XXX return null;
       }
        
       // Find a matching media transport
