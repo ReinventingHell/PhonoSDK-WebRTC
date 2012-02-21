@@ -4,8 +4,8 @@ function WebRTCAudio(phono, config, callback) {
     
     this.config = Phono.util.extend({
         media: "audio,video"
-      }  , config);
-
+    }, config);
+    
     var plugin = this;
     
     var localContainerId = this.config.localContainerId;
@@ -80,6 +80,7 @@ WebRTCAudio.prototype.share = function(url, autoPlay, codec) {
         },
         stop: function() {
             // Stop
+            console.log("Closing PeerConnection");
             WebRTCAudio.pc.close();
             WebRTCAudio.remoteVideo.style.opacity = 0;
         },
@@ -239,7 +240,7 @@ WebRTCAudio.prototype.audioInDevices = function(){
     return result;
 }
 
-// Creates a DIV to hold the audio element if not specified by the user
+// Creates a DIV to hold the video element if not specified by the user
 WebRTCAudio.prototype.createContainer = function() {
     var webRTC = $("<video>")
       	.attr("id","_phono-audio-webrtc" + (WebRTCAudio.count++))

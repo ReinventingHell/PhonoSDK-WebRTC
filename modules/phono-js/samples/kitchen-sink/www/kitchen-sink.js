@@ -16,10 +16,11 @@ $(document).ready(function() {
 
 	phonos[newPhonoID] = $.phono({
 	    apiKey: "C17D167F-09C6-4E4C-A3DD-2025D48BA243",
-            //gateway: "localhost",
-            gateway: "ec2-50-19-77-101.compute-1.amazonaws.com",
-	    //connectionUrl: "http://localhost:8080/prism_bosh",
-            connectionUrl: "http://ec2-50-19-77-101.compute-1.amazonaws.com:8080/prism_bosh",
+            
+            //gateway: "phono-dev.vipadia.com",
+            //connectionUrl: "http://ec2-50-19-77-101.compute-1.amazonaws.com:8080/prism_bosh",
+            gateway: "localhost",
+            connectionUrl: "http://localhost:8080/prism_bosh",
 
             onReady: function(event) {
                 newPhonoDiv.find(".sessionId").text(this.sessionId);

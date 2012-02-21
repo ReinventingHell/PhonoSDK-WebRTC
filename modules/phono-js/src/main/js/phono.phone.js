@@ -356,8 +356,7 @@
       
       // No matching codec
       if (!codec) {
-          Phono.log.error("No matching codec");
-          //XXX return null;
+          Phono.log.error("No matching jingle codec (not a problem if using WebRTC)");
       }
        
       // Find a matching media transport
@@ -544,7 +543,8 @@
       this.connection.send(
          $iq({
             type: "result", 
-            id: $(iq).attr('id')
+             id: $(iq).attr('id'),
+             to:call.remoteJid
          })
       );
       
