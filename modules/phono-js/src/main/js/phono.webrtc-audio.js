@@ -120,14 +120,15 @@ WebRTCAudio.prototype.share = function(url, autoPlay, codec) {
             return null;
         },
         mute: function(value) {
-            if(arguments.length === 0) {
-                return WebRTCAudio.localStream.audioTracks.item(1).enabled;
-   	    }
-            if (value == true) {
-                WebRTCAudio.localStream.audioTracks.item(1).enabled = false;
-            } else {
-                WebRTCAudio.localStream.audioTracks.item(1).enabled = true;
-            }
+//            if(arguments.length === 0) {
+ //               return WebRTCAudio.localStream.audioTracks.item(1).enabled;
+//   	    }
+//            if (value == true) {
+//                WebRTCAudio.localStream.audioTracks.item(1).enabled = false;
+//            } else {
+//                WebRTCAudio.localStream.audioTracks.item(1).enabled = true;
+//            }
+            return null;
         },
         suppress: function(value) {
             return null;
