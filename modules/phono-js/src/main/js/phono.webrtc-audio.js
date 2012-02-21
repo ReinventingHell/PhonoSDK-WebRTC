@@ -81,7 +81,10 @@ WebRTCAudio.prototype.share = function(url, autoPlay, codec) {
         stop: function() {
             // Stop
             console.log("Closing PeerConnection");
-            WebRTCAudio.pc.close();
+            if (WebRTCAudio.pc != null) {
+                WebRTCAudio.pc.close();
+                WebRTCAudio.pc = null;
+            } 
             WebRTCAudio.remoteVideo.style.opacity = 0;
         },
         digit: function(value, duration, audible) {
@@ -168,6 +171,10 @@ WebRTCAudio.prototype.transport = function() {
                 WebRTCAudio.pc.processSignalingMessage(WebRTCAudio.offer);
             } else {
                 // We are creating an outbound call
+                if (WebRTCAudio.pc != null) {
+                    WebRTCAudio.pc.close();
+                    WebRTCAudio.pc = null;
+                }
                 WebRTCAudio.pc = new webkitPeerConnection(WebRTCAudio.stun,
                                                           function(message) {
                                                               console.log("C->S SDP: " + message);
