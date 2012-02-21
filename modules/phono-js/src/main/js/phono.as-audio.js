@@ -175,8 +175,9 @@ FlashAudio.prototype.transport = function() {
     return {
         name: this.$flash.getTransport(),
         description: this.$flash.getDescription(),
-        buildTransport: function(j) {
+        buildTransport: function(direction, j, callback) {
             j.c('transport',{xmlns:this.name});
+            callback();
         },
         processTransport: function(t) {
             var fullUri;
