@@ -120,7 +120,14 @@ WebRTCAudio.prototype.share = function(url, autoPlay, codec) {
             return null;
         },
         mute: function(value) {
-            return null;
+            if(arguments.length === 0) {
+                return WebRTCAudio.localStream.audioTracks.item(1).enabled;
+   	    }
+            if (value == true) {
+                WebRTCAudio.localStream.audioTracks.item(1).enabled = false;
+            } else {
+                WebRTCAudio.localStream.audioTracks.item(1).enabled = true;
+            }
         },
         suppress: function(value) {
             return null;
@@ -206,6 +213,9 @@ WebRTCAudio.prototype.transport = function() {
                                                               // Canary is giving a null s= line, so 
                                                               // we replace it with something useful
                                                               message = message.replace("s=", "s=Canary");
+                                                              message = message.replace("a=group:BUNDLE audio video", "a=group:BUNDLE 2 1");
+                                                              message = message.replace("a=mid:audio", "a=mid:2");
+                                                              message = message.replace("a=mid:video", "a=mid:1");
                                                               var roap = jQuery.parseJSON(message.substring(4,message.length));
                                                               if (roap['messageType'] == "OFFER") {
                                                                   j.c('transport',{xmlns:"http://phono.com/webrtc/transport"})
