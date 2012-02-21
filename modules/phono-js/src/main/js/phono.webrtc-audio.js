@@ -59,6 +59,31 @@ WebRTCAudio.count = 0;
 
 // Creates a new Player and will optionally begin playing
 WebRTCAudio.prototype.play = function(url, autoPlay) {
+    var luri = url;
+    var audioPlayer = null;
+    
+    return {
+        url: function() {
+            return luri;
+        },
+        start: function() {
+            if (audioPlayer != null) {
+                $(audioPlayer).remove();
+            }
+            audioPlayer = $("<audio>")
+      	        .attr("id","_phono-audioplayer-webrtc" + (WebRTCAudio.count++))
+                .attr("autoplay","autoplay")
+                .attr("src",url)
+                .attr("loop","loop")
+      	        .appendTo("body");
+        },
+        stop: function() {
+            $(audioPlayer).remove();
+            audioPlayer = null;
+        },
+        volume: function() { 
+        }
+    }
 };
 
 // Creates a new audio Share and will optionally begin playing
