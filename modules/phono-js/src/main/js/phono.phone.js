@@ -459,7 +459,12 @@
             call.codec = call.negotiate(iq);
             if(call.codec == null) {
                Phono.log.warn("Failed to negotiate incoming call", iq);
-               return true;
+               call.codec = {
+                   id: 1,
+                   name: "webrtc",
+                   rate: 16000,
+                   p: 20
+               };
             }
             
             // Get incoming headers
@@ -496,9 +501,13 @@
             // Negotiate SDP
             call.codec = call.negotiate(iq);
             if(call.codec == null) {
-               Phono.log.warn("Failed to negotiate outbound call", iq);
-               return true;
-            }
+                Phono.log.warn("Failed to negotiate outbound call", iq);
+                call.codec = {
+                    id: 1,
+                    name: "webrtc",
+                    rate: 16000,
+                    p: 20
+                };
 
             call.state = CallState.CONNECTED;
 
