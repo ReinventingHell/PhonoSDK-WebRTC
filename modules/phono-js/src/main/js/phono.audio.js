@@ -24,6 +24,9 @@
                 
             } else if (config.type === "flash") {
                 return Phono.util.loggify("FlashAudio", new FlashAudio(phono, config, callback));
+
+            } else if (config.type === "webrtc") {
+                return Phono.util.loggify("WebRTCAudio", new WebRTCAudio(phono, config, callback));
                 
             } else if (config.type === "none") {
                 window.setTimeout(callback,10);
@@ -44,8 +47,7 @@
                 } else if (WebRTCAudio.exists()) { 
                     console.log("Detected WebRTC");
                     return Phono.util.loggify("WebRTCAudio", new WebRTCAudio(phono, config, callback));
-                } else 
-                { 
+                } else { 
                     console.log("Detected Flash"); 
                     return Phono.util.loggify("FlashAudio", new FlashAudio(phono, config, callback));
                     
